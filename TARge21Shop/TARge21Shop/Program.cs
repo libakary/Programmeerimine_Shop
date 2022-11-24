@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using TARge21Shop.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// lisasime juurde
+builder.Services.AddDbContext<TARge21ShopContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

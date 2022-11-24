@@ -3,13 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TARge21Shop", "TARge21Shop\TARge21Shop.csproj", "{CDD650D6-8F11-4C24-BC4E-DAEEFC4C2C9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TARge21Shop", "TARge21Shop\TARge21Shop.csproj", "{CDD650D6-8F11-4C24-BC4E-DAEEFC4C2C9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TARge21Shop.ApplicationServices", "TARge21Shop.ApplicationServices\TARge21Shop.ApplicationServices.csproj", "{5FB77439-6655-40E2-9F17-B295B8F01C75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TARge21Shop.ApplicationServices", "TARge21Shop.ApplicationServices\TARge21Shop.ApplicationServices.csproj", "{5FB77439-6655-40E2-9F17-B295B8F01C75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TARge21Shop.Core", "TARge21Shop.Core\TARge21Shop.Core.csproj", "{B640CB6A-AC49-4893-8B5D-F97DAC8E21C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TARge21Shop.Core", "TARge21Shop.Core\TARge21Shop.Core.csproj", "{B640CB6A-AC49-4893-8B5D-F97DAC8E21C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TARge21Shop.Data", "TARge21Shop.Data\TARge21Shop.Data.csproj", "{51D7E92F-34AB-4FCB-9D31-6BE0A26F6F88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TARge21Shop.Data", "TARge21Shop.Data\TARge21Shop.Data.csproj", "{51D7E92F-34AB-4FCB-9D31-6BE0A26F6F88}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B640CB6A-AC49-4893-8B5D-F97DAC8E21C7} = {B640CB6A-AC49-4893-8B5D-F97DAC8E21C7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

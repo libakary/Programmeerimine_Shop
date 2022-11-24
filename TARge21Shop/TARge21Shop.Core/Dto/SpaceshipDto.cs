@@ -1,13 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace TARge21Shop.Core.Domain.Spaceship
+namespace TARge21Shop.Core.Dto
 {
-    public class Spaceship
+    public class SpaceshipDto
     {
-        [Key] // primaarvõti
         public Guid? Id { get; set; } // guid parem kasutada, seal rohkem ruumi ja kombinatsioone
         public string Name { get; set; }
-        public string Type  { get; set; }
+        public string Type { get; set; }
         public int Crew { get; set; }
         public int Passengers { get; set; }
         public int CargoWeight { get; set; }
@@ -22,6 +26,5 @@ namespace TARge21Shop.Core.Domain.Spaceship
         // only in database
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
-
     }
 }
