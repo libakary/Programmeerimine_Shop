@@ -50,15 +50,6 @@ namespace TARge21Shop.ApplicationServices.Services
 
             return domain;
         }
-
-        public async Task<Spaceship> GetUpdate(Guid id)
-        {
-            var result = await _context.Spaceships
-                .FirstOrDefaultAsync(x => x.Id == id);
-
-            return result;
-        }
-
         public async Task<Spaceship> Update(SpaceshipDto dto)
         {
             var domain = new Spaceship()
@@ -82,7 +73,32 @@ namespace TARge21Shop.ApplicationServices.Services
             _context.Spaceships.Update(domain);
             await _context.SaveChangesAsync();
             return domain;
+        }
+        public async Task<Spaceship> GetUpdate(Guid id)
+        {
+            var result = await _context.Spaceships
+                .FirstOrDefaultAsync(x => x.Id == id);
 
+            return result;
+        }
+
+        public async Task<Spaceship> Delete(Guid id)
+        {
+            var spaceshipId = await _context.Spaceships
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            _context.Spaceships.Remove(spaceshipId);
+            await _context.SaveChangesAsync();
+
+            return spaceshipId;
+        }
+
+        public async Task<Spaceship> GetAsync(Guid id)
+        {
+            var result = await _context.Spaceships
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return result;
         }
     }
 }
