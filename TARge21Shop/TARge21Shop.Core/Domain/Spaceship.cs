@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TARge21Shop.Core.Domain.Spaceship
+namespace TARge21Shop.Core.Domain
 {
     public class Spaceship
     {
         [Key] // primaarvõti
         public Guid? Id { get; set; } // guid parem kasutada, seal rohkem ruumi ja kombinatsioone
         public string Name { get; set; }
-        public string Type  { get; set; }
+        public string Type { get; set; }
         public int Crew { get; set; }
         public int Passengers { get; set; }
         public int CargoWeight { get; set; }
