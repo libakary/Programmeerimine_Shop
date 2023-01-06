@@ -40,8 +40,6 @@ namespace TARge21Shop.Controllers
         public IActionResult Add()
         {
             SpaceshipEditViewModel spaceship = new SpaceshipEditViewModel();
-
-
             return View("Edit", spaceship);
         }
 
@@ -85,7 +83,6 @@ namespace TARge21Shop.Controllers
             {
                 return NotFound();
             }
-
             var vm = new SpaceshipEditViewModel()
             {
                 Id = spaceship.Id,

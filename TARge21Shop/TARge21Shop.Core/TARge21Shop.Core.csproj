@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ServiceInterface\" />
+    <Folder Include="Domain\Car\" />
   </ItemGroup>
 
 </Project>
