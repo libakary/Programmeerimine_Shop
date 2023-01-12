@@ -75,7 +75,13 @@
 			<label asp-for="ModifiedAt" class="col-sm-2 col-form-label"></label>
 			@Html.DisplayFor(model => model.ModifiedAt)
 		</div>
-	</dl>
 
+		@foreach (var images in Model.Image)
+		{
+			<partial name="_Images" model="images" />
+			//kokkulepe reegel pannakse partial view _ette
+		}
+		<hr />
+	</dl>
 	<a asp-action="index" asp-controller="spaceships" class="btn btn-success">Back</a>
 </div>
