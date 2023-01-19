@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace TARge21Shop.Core.Domain
 {
@@ -19,8 +20,10 @@ namespace TARge21Shop.Core.Domain
         public DateTime MaidenLaunch { get; set; }
         public DateTime BuiltDate { get; set; }
 
-        // only in database
-        public DateTime CreatedAt { get; set; }
+
+
+		// only in database
+		public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
 
     }
