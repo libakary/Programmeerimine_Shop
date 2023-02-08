@@ -15,8 +15,10 @@
         public int MaintenanceCount { get; set; }
         public DateTime LastMaintenance { get; set; }
 
-        // only in database
-        public DateTime CreatedAt { get; set; }
+		public List<ImageViewModel> Image { get; set; } = new List<ImageViewModel>();
+
+		// only in database
+		public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
     }
 }

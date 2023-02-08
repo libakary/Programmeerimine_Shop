@@ -58,7 +58,14 @@
 			<label asp-for="ModifiedAt" class="col-sm-2 col-form-label"></label>
 			@Html.DisplayFor(model => model.ModifiedAt)
 		</div>
+
+		@foreach (var images in Model.Image)
+		{
+			<partial name="_Images" model="images"/>
+		}
+
+		<hr/>
 	</dl>
 
-	<a asp-action="index" class="btn btn-primary">Index</a>
+	<a asp-action="index" asp-controller="cars" class="btn btn-success">Back</a>
 </div>

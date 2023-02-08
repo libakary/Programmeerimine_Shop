@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TARge21Shop.Core.Domain.Car;
 
 namespace TARge21Shop.Core.Dto
 {
@@ -21,8 +22,11 @@ namespace TARge21Shop.Core.Dto
         public int MaintenanceCount { get; set; }
         public DateTime LastMaintenance { get; set; }
 
-        // only in database
-        public DateTime CreatedAt { get; set; }
+        public List<IFormFile> Files { get; set; }
+        public IEnumerable<FileToDatabaseDto> Image { get; set; } = new List<FileToDatabaseDto>();
+
+		// only in database
+		public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
     }
 }

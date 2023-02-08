@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.EntityFrameworkCore;
 using TARge21Shop.ApplicationServices.Services;
 using TARge21Shop.Core.Domain.Car;
 using TARge21Shop.Core.Domain.Spaceship;
@@ -14,15 +16,18 @@ namespace TARge21Shop.Controllers
     {
         private readonly TARge21ShopContext _context;
         private readonly ICarsServices _carsServices;
+        private readonly IFilesServices _filesServices;
 
         public CarsController
             (
                 TARge21ShopContext context,
-                ICarsServices carsServices
+                ICarsServices carsServices,
+                IFilesServices filesServices
             )
         {
             _context = context;
             _carsServices = carsServices;
+            _filesServices = filesServices;
         }
         public IActionResult Index()
         {
@@ -50,22 +55,33 @@ namespace TARge21Shop.Controllers
                 return NotFound();
             }
 
-            var vm = new CarDetailsViewModel()
-            {
-                Id = car.Id,
-                Name = car.Name,
-                BodyStyle = car.BodyStyle,
-                Make = car.Make,
-                Model = car.Model,
-                EnginePower = car.EnginePower,
-                MaxPassengers = car.MaxPassengers,
-                WeightCapacity = car.WeightCapacity,
-                BuiltDate = car.BuiltDate,
-                MaintenanceCount = car.MaintenanceCount,
-                LastMaintenance = car.LastMaintenance,
-                CreatedAt = car.CreatedAt,
-                ModifiedAt = car.ModifiedAt
-            };
+			var photos = await _context.FileToDatabases
+				.Where(x => x.CarId == id)
+				.Select(y => new ImageViewModel
+				{
+					CarId = y.Id,
+					ImageId = y.Id,
+					ImageData = y.ImageData,
+					ImageTitle = y.ImageTitle,
+					Image = String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
+				}).ToArrayAsync();
+
+            var vm = new CarDetailsViewModel();
+
+			vm.Id = car.Id;
+			vm.Name = car.Name;
+			vm.BodyStyle = car.BodyStyle;
+			vm.Make = car.Make;
+			vm.Model = car.Model;
+			vm.EnginePower = car.EnginePower;
+			vm.MaxPassengers = car.MaxPassengers;
+			vm.WeightCapacity = car.WeightCapacity;
+			vm.BuiltDate = car.BuiltDate;
+			vm.MaintenanceCount = car.MaintenanceCount;
+			vm.LastMaintenance = car.LastMaintenance;
+			vm.CreatedAt = car.CreatedAt;
+			vm.ModifiedAt = car.ModifiedAt;
+			vm.Image.AddRange(photos);
 
             return View(vm);
         }
@@ -94,7 +110,15 @@ namespace TARge21Shop.Controllers
                 MaintenanceCount = vm.MaintenanceCount,
                 LastMaintenance = vm.LastMaintenance,
                 CreatedAt = vm.CreatedAt,
-                ModifiedAt = vm.ModifiedAt
+                ModifiedAt = vm.ModifiedAt,
+                Files = vm.Files,
+                Image = vm.Image.Select(x => new FileToDatabaseDto
+                {
+                    Id = x.ImageId,
+                    ImageData = x.ImageData,
+                    ImageTitle = x.ImageTitle,
+                    CarId = x.CarId
+                })
             };
 
             var result = await _carsServices.Create(dto);
@@ -115,24 +139,37 @@ namespace TARge21Shop.Controllers
             {
                 return NotFound();
             }
-            var vm = new CarUpdateViewModel()
-            {
-                Id = car.Id,
-                Name = car.Name,
-                BodyStyle = car.BodyStyle,
-                Make = car.Make,
-                Model = car.Model,
-                EnginePower = car.EnginePower,
-                MaxPassengers = car.MaxPassengers,
-                WeightCapacity = car.WeightCapacity,
-                BuiltDate = car.BuiltDate,
-                MaintenanceCount = car.MaintenanceCount,
-                LastMaintenance = car.LastMaintenance,
-                CreatedAt = car.CreatedAt,
-                ModifiedAt = car.ModifiedAt
-            };
 
-            return View(vm);
+            var photos = await _context.FileToDatabases
+                .Where(x => x.CarId == id)
+                .Select(y => new ImageViewModel
+                {
+                    CarId = y.Id,
+                    ImageId = y.Id,
+                    ImageData = y.ImageData,
+                    ImageTitle = y.ImageTitle,
+                    Image = String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
+                }).ToArrayAsync();
+
+            var vm = new CarUpdateViewModel();
+
+            vm.Id = car.Id;
+            vm.Name = car.Name;
+            vm.BodyStyle = car.BodyStyle;
+            vm.Make = car.Make;
+            vm.Model = car.Model;
+            vm.EnginePower = car.EnginePower;
+            vm.MaxPassengers = car.MaxPassengers;
+            vm.WeightCapacity = car.WeightCapacity;
+            vm.BuiltDate = car.BuiltDate;
+            vm.MaintenanceCount = car.MaintenanceCount;
+            vm.LastMaintenance = car.LastMaintenance;
+            vm.CreatedAt = car.CreatedAt;
+            vm.ModifiedAt = car.ModifiedAt;
+            vm.Image.AddRange(photos);
+            
+
+            return View("Edit", vm);
         }
         [HttpPost]
         public async Task<IActionResult> Update(CarUpdateViewModel vm)
@@ -151,7 +188,15 @@ namespace TARge21Shop.Controllers
                 MaintenanceCount = vm.MaintenanceCount,
                 LastMaintenance = vm.LastMaintenance,
                 CreatedAt = vm.CreatedAt,
-                ModifiedAt = vm.ModifiedAt
+                ModifiedAt = vm.ModifiedAt,
+                Files = vm.Files,
+                Image = vm.Image.Select(x => new FileToDatabaseDto
+                {
+                    Id = x.ImageId,
+                    ImageData = x.ImageData,
+                    ImageTitle = x.ImageTitle,
+                    CarId = x.CarId
+                })
             };
 
             var result = await _carsServices.Update(dto);
@@ -186,24 +231,53 @@ namespace TARge21Shop.Controllers
                 return NotFound();
             }
 
-            var vm = new CarDeleteViewModel()
-            {
-                Id = car.Id,
-                Name = car.Name,
-                BodyStyle = car.BodyStyle,
-                Make = car.Make,
-                Model = car.Model,
-                EnginePower = car.EnginePower,
-                MaxPassengers = car.MaxPassengers,
-                WeightCapacity = car.WeightCapacity,
-                BuiltDate = car.BuiltDate,
-                MaintenanceCount = car.MaintenanceCount,
-                LastMaintenance = car.LastMaintenance,
-                CreatedAt = car.CreatedAt,
-                ModifiedAt = car.ModifiedAt
-            };
+			var photos = await _context.FileToDatabases
+				.Where(x => x.CarId == id)
+				.Select(y => new ImageViewModel
+				{
+					CarId = y.Id,
+					ImageId = y.Id,
+					ImageData = y.ImageData,
+					ImageTitle = y.ImageTitle,
+					Image = String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(y.ImageData))
+				}).ToArrayAsync();
+
+            var vm = new CarDeleteViewModel();
+
+			vm.Id = car.Id;
+			vm.Name = car.Name;
+			vm.BodyStyle = car.BodyStyle;
+			vm.Make = car.Make;
+			vm.Model = car.Model;
+			vm.EnginePower = car.EnginePower;
+			vm.MaxPassengers = car.MaxPassengers;
+			vm.WeightCapacity = car.WeightCapacity;
+			vm.BuiltDate = car.BuiltDate;
+			vm.MaintenanceCount = car.MaintenanceCount;
+			vm.LastMaintenance = car.LastMaintenance;
+			vm.CreatedAt = car.CreatedAt;
+			vm.ModifiedAt = car.ModifiedAt;
+			vm.Image.AddRange(photos);
 
             return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveImage(ImageViewModel file)
+        {
+            var dto = new FileToDatabaseDto()
+            {
+                Id = file.ImageId
+            };
+
+            var image = await _filesServices.RemoveImage(dto);
+
+            if (image == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
