@@ -24,11 +24,12 @@ namespace TARge21Shop.ApplicationServices.Services
 			_context = context;
 
 		}
-		public async Task<RealEstate> GetAsync()
+		public async Task<RealEstate> GetAsync(Guid id)
 		{
-			//var result = await _context.RealEstates;
+			var result = await _context.RealEstates
+				.FirstOrDefaultAsync(x => x.Id == id);
 
-			return null;
+			return result;
 		}
 
 		public async Task<RealEstate> Create(RealEstateDto dto)
@@ -54,6 +55,43 @@ namespace TARge21Shop.ApplicationServices.Services
 			await _context.SaveChangesAsync();
 
 			return realEstate;
+		}
+
+		public async Task<RealEstate> Update(RealEstateDto dto)
+		{
+			var domain = new RealEstate()
+			{
+				Id = dto.Id,
+				Address = dto.Address,
+				City = dto.City,
+				Region = dto.Region,
+				PostalCode = dto.PostalCode,
+				Country = dto.Country,
+				Phone = dto.Phone,
+				Fax = dto.Fax,
+				Size = dto.Size,
+				Floor = dto.Floor,
+				Price = dto.Price,
+				RoomCount = dto.RoomCount,
+				ModifiedAt = DateTime.Now,
+			};
+
+			_context.RealEstates.Update(domain);
+			await _context.SaveChangesAsync();
+			return domain;
+		}
+
+		public async Task<RealEstate> Delete(Guid id)
+		{
+			var realEstateId = await _context.RealEstates
+				.FirstOrDefaultAsync(x => x.Id == id);
+
+			//siia tuleb images
+
+			_context.RealEstates.Remove(realEstateId);
+			await _context.SaveChangesAsync();
+
+			return realEstateId;
 		}
 	}
 }
