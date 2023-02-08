@@ -131,9 +131,9 @@ namespace TARge21Shop.Controllers
             return RedirectToAction(nameof(Index), vm);
         }
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Update(Guid id)
         {
-            var car = await _carsServices.GetUpdate(id);
+            var car = await _carsServices.GetAsync(id);
 
             if (car == null)
             {
@@ -169,7 +169,7 @@ namespace TARge21Shop.Controllers
             vm.Image.AddRange(photos);
             
 
-            return View("Edit", vm);
+            return View("Update", vm);
         }
         [HttpPost]
         public async Task<IActionResult> Update(CarUpdateViewModel vm)
@@ -207,18 +207,6 @@ namespace TARge21Shop.Controllers
             }
 
             return RedirectToAction(nameof(Index), vm);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmation(Guid id)
-        {
-            var carId = await _carsServices.Delete(id);
-            if (carId == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -262,7 +250,19 @@ namespace TARge21Shop.Controllers
             return View(vm);
         }
 
-        [HttpPost]
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmation(Guid id)
+		{
+			var carId = await _carsServices.Delete(id);
+			if (carId == null)
+			{
+				return RedirectToAction(nameof(Index));
+			}
+
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpPost]
         public async Task<IActionResult> RemoveImage(ImageViewModel file)
         {
             var dto = new FileToDatabaseDto()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +23,9 @@ namespace TARge21Shop.ApplicationServices.Services
 			_context = context;
 		}
 
-		public void UploadFilesToDatabase(CarDto dto, CarDto domain)
+		public void UploadFilesToDatabase(CarDto dto, Car domain)
 		{
-			if (dto.Files != null && dto.Files.Count > 0) 
+			if (dto.Files != null && dto.Files.Count > 0)
 			{
 				foreach (var photo in dto.Files)
 				{
@@ -44,6 +45,33 @@ namespace TARge21Shop.ApplicationServices.Services
 					}
 				}
 			}
+		}
+
+		public async Task<FileToDatabase> RemoveImage(FileToDatabaseDto dto)
+		{
+			var image = await _context.FileToDatabases
+				.Where(x => x.Id == dto.Id)
+				.FirstOrDefaultAsync();
+
+			_context.FileToDatabases.Remove(image);
+			await _context.SaveChangesAsync();
+
+			return image;
+		}
+
+		public async Task<List<FileToDatabase>> RemoveImagesFromDatabase(FileToDatabaseDto[] dtos)
+		{
+			foreach (var dto in dtos)
+			{
+				var image = await _context.FileToDatabases
+					.Where(x => x.Id == dto.Id)
+					.FirstOrDefaultAsync();
+
+				_context.FileToDatabases.Remove(image);
+				await _context.SaveChangesAsync();
+			}
+
+			return null;
 		}
 	}
 }
