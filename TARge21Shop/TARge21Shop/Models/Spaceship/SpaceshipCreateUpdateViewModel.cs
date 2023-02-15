@@ -12,7 +12,6 @@
         public int MaintenanceCount { get; set; }
         public DateTime LastMaintenance { get; set; }
         public int EnginePower { get; set; }
-
         public DateTime MaidenLaunch { get; set; }
         public DateTime BuiltDate { get; set; }
 

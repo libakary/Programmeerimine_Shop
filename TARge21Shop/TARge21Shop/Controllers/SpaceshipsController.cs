@@ -45,7 +45,6 @@ namespace TARge21Shop.Controllers
         {
             SpaceshipCreateUpdateViewModel spaceship = new SpaceshipCreateUpdateViewModel();
 
-
             return View("CreateUpdate", spaceship);
         }
 
@@ -75,7 +74,7 @@ namespace TARge21Shop.Controllers
                     ImageData = x.ImageData,
                     ImageTitle = x.ImageTitle,
                     SpaceshipId = x.SpaceshipId
-                })
+                }).ToArray()
             };
 
             var result = await _spaceshipsServices.Create(dto);
@@ -157,7 +156,7 @@ namespace TARge21Shop.Controllers
                     ImageData = x.ImageData,
                     ImageTitle = x.ImageTitle,
                     SpaceshipId = x.SpaceshipId
-                })
+                }).ToArray()
             };
 
             var result = await _spaceshipsServices.Update(dto);

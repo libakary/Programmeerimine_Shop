@@ -105,7 +105,7 @@ namespace TARge21Shop.ApplicationServices.Services
 						FileToApi path = new FileToApi
 						{
 							Id = Guid.NewGuid(),
-							FilePath = filePath,
+							ExistingFilePath = filePath,
 							RealEstateId = realEstate.Id,
 						};
 
