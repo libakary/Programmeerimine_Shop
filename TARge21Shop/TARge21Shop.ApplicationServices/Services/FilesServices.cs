@@ -94,9 +94,9 @@ namespace TARge21Shop.ApplicationServices.Services
 
 				foreach (var image in dto.Files)
 				{
-					string uploadsFoldder = Path.Combine(_webHost.WebRootPath, "multipleFileUpload");
+					string uploadsFolder = Path.Combine(_webHost.WebRootPath, "multipleFileUpload");
 					string uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
-					string filePath = Path.Combine(uploadsFoldder, uniqueFileName);
+					string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
 					using (var fileStream = new FileStream(filePath, FileMode.Create))
 					{
@@ -105,7 +105,7 @@ namespace TARge21Shop.ApplicationServices.Services
 						FileToApi path = new FileToApi
 						{
 							Id = Guid.NewGuid(),
-							FilePath = filePath,
+							FilePath = uniqueFileName,
 							RealEstateId = realEstate.Id,
 						};
 
@@ -113,6 +113,47 @@ namespace TARge21Shop.ApplicationServices.Services
 					}
 				}
 			}
+		}
+
+		public async Task<List<FileToApi>> RemoveImagesFromApi(FileToApiDto[] dtos)
+		{
+			foreach (var dto in dtos) {
+
+				var imageId = await _context.FileToApis
+					.FirstOrDefaultAsync(x => x.FilePath == dto.FilePath);
+
+				var filePath = _webHost.WebRootPath + "\\multipleFileUpload\\" + imageId.FilePath;
+
+				if (File.Exists(filePath))
+				{
+					File.Delete(filePath);
+				}
+
+				_context.FileToApis.Remove(imageId);
+				await _context.SaveChangesAsync();
+
+			}
+
+			return null;
+		}
+
+		public async Task<FileToApi> RemoveImageFromApi(FileToApiDto dto)
+		{
+
+			var imageId = await _context.FileToApis
+				.FirstOrDefaultAsync(x => x.Id == dto.Id);
+
+			var filePath = _webHost.WebRootPath + "\\multipleFileUpload\\" + imageId.FilePath;
+
+			if (File.Exists(filePath))
+			{
+				File.Delete(filePath);
+			}
+
+			_context.FileToApis.Remove(imageId);
+			await _context.SaveChangesAsync();
+
+			return null;
 		}
 	}
 }

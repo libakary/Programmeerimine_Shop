@@ -76,10 +76,11 @@
 			@Html.DisplayFor(model => model.ModifiedAt)
 		</div>
 
-		@*@foreach (var images in Model.Image)
+		@foreach (var images in Model.FileToApiViewModels)
 		{
 			<partial name="_Images" model="images" />
-		}*@
+			//kokkulepe reegel pannakse partial view _ette
+		}
 	</dl>
 
 	<form asp-action="DeleteConfirmation">

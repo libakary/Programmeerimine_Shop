@@ -12,15 +12,18 @@ namespace TARge21Shop.Controllers
 	{
 		private readonly TARge21ShopContext _context;
 		private readonly IRealEstatesServices _realEstatesServices;
+		private readonly IFilesServices _filesServices;
 
 		public RealEstatesController
 			(
 				TARge21ShopContext context,
-				IRealEstatesServices realEstatesServices
+				IRealEstatesServices realEstatesServices,
+				IFilesServices filesServices
 			) 
 		{
 			_context = context;
 			_realEstatesServices = realEstatesServices;
+			_filesServices = filesServices;
 		}
 
 		[HttpGet]
@@ -145,6 +148,15 @@ namespace TARge21Shop.Controllers
 				RoomCount = vm.RoomCount,
 				CreatedAt = vm.CreatedAt,
 				ModifiedAt = vm.ModifiedAt,
+				Files = vm.Files,
+				FileToApiDtos = vm.FileToApiViewModels
+					.Select(x => new FileToApiDto
+					{
+						Id = x.ImageId,
+						FilePath = x.FilePath,
+						RealEstateId = x.RealEstateId
+					}).ToArray()
+
 			};
 
 			var result = await _realEstatesServices.Update(dto);
@@ -245,6 +257,24 @@ namespace TARge21Shop.Controllers
 			{
 				return RedirectToAction(nameof(Index));
 			}
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> RemoveImage(FileToApiViewModel vm)
+		{
+			var dto = new FileToApiDto()
+			{
+				Id = vm.ImageId
+			};
+
+			var image = await _filesServices.RemoveImageFromApi(dto);
+
+			if (image == null)
+			{
+				return RedirectToAction(nameof(Index));
+			}
+
 			return RedirectToAction(nameof(Index));
 		}
 

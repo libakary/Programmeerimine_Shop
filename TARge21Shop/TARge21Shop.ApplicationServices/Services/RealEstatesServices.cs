@@ -63,34 +63,45 @@ namespace TARge21Shop.ApplicationServices.Services
 
 		public async Task<RealEstate> Update(RealEstateDto dto)
 		{
-			var domain = new RealEstate()
-			{
-				Id = dto.Id,
-				Address = dto.Address,
-				City = dto.City,
-				Region = dto.Region,
-				PostalCode = dto.PostalCode,
-				Country = dto.Country,
-				Phone = dto.Phone,
-				Fax = dto.Fax,
-				Size = dto.Size,
-				Floor = dto.Floor,
-				Price = dto.Price,
-				RoomCount = dto.RoomCount,
-				ModifiedAt = DateTime.Now,
-			};
+			RealEstate realEstate = new();
 
-			_context.RealEstates.Update(domain);
+			realEstate.Id = dto.Id;
+			realEstate.Address = dto.Address;
+			realEstate.City = dto.City;
+			realEstate.Region = dto.Region;
+			realEstate.PostalCode = dto.PostalCode;
+			realEstate.Country = dto.Country;
+			realEstate.Phone = dto.Phone;
+			realEstate.Fax = dto.Fax;
+			realEstate.Size = dto.Size;
+			realEstate.Floor = dto.Floor;
+			realEstate.Price = dto.Price;
+			realEstate.RoomCount = dto.RoomCount;
+			realEstate.ModifiedAt = DateTime.Now;
+			realEstate.CreatedAt = dto.CreatedAt;
+			_filesServices.FilesToApi(dto, realEstate);
+
+			_context.RealEstates.Update(realEstate);
 			await _context.SaveChangesAsync();
-			return domain;
+			return realEstate;
 		}
 
 		public async Task<RealEstate> Delete(Guid id)
 		{
 			var realEstateId = await _context.RealEstates
+				.Include(x => x.FileToApis)
 				.FirstOrDefaultAsync(x => x.Id == id);
 
-			//siia tuleb images
+			var images = await _context.FileToApis
+				.Where(x => x.RealEstateId == id)
+				.Select(y => new FileToApiDto
+				{
+					Id = y.Id,
+					RealEstateId = y.RealEstateId,
+					FilePath = y.FilePath
+				}).ToArrayAsync();
+
+			await _filesServices.RemoveImagesFromApi(images);
 
 			_context.RealEstates.Remove(realEstateId);
 			await _context.SaveChangesAsync();
