@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Metrics;
 using TARge21Shop.Core.Dto;
 using TARge21Shop.Core.ServiceInterface;
@@ -72,7 +73,7 @@ namespace TARge21Shop.Controllers
 					.Select(x => new FileToApiDto
 					{
 						Id = x.ImageId,
-						ExistingFilePath = x.FilePath,
+						FilePath = x.FilePath,
 						RealEstateId = x.RealEstateId
 					}).ToArray()
 			};
@@ -95,6 +96,15 @@ namespace TARge21Shop.Controllers
 				return NotFound();
 			}
 
+			var images = await _context.FileToApis
+				.Where(x => x.RealEstateId == id)
+				.Select(y => new FileToApiViewModel
+				{
+					FilePath = y.FilePath,
+					ImageId = y.Id
+
+				}).ToArrayAsync();
+
 			var vm = new RealEstateCreateUpdateViewModel();
 
 			vm.Id = realEstate.Id;
@@ -111,7 +121,7 @@ namespace TARge21Shop.Controllers
 			vm.RoomCount = realEstate.RoomCount;
 			vm.CreatedAt = realEstate.CreatedAt;
 			vm.ModifiedAt = realEstate.ModifiedAt;
-
+			vm.FileToApiViewModels.AddRange(images);
 
 			return View("CreateUpdate", vm);
 		}
@@ -156,6 +166,15 @@ namespace TARge21Shop.Controllers
 				return NotFound();
 			}
 
+			var images = await _context.FileToApis
+				.Where(x => x.RealEstateId == id)
+				.Select(y => new FileToApiViewModel
+				{
+					FilePath = y.FilePath,
+					ImageId = y.Id
+
+				}).ToArrayAsync();
+
 			var vm = new RealEstateDetailsViewModel();
 
 			vm.Id = realEstate.Id;
@@ -172,6 +191,7 @@ namespace TARge21Shop.Controllers
 			vm.RoomCount = realEstate.RoomCount;
 			vm.CreatedAt = realEstate.CreatedAt;
 			vm.ModifiedAt = realEstate.ModifiedAt;
+			vm.FileToApiViewModels.AddRange(images);
 
 			return View(vm);
 
@@ -186,7 +206,15 @@ namespace TARge21Shop.Controllers
 			{
 				return NotFound();
 			}
-			//siia tuleb photos hiljem
+
+			var images = await _context.FileToApis
+				.Where(x => x.RealEstateId == id)
+				.Select(y => new FileToApiViewModel
+				{
+					FilePath = y.FilePath,
+					ImageId = y.Id
+
+				}).ToArrayAsync();
 
 			var vm = new RealEstateDeleteViewModel();
 
@@ -204,6 +232,7 @@ namespace TARge21Shop.Controllers
 			vm.RoomCount = realEstate.RoomCount;
 			vm.CreatedAt = realEstate.CreatedAt;
 			vm.ModifiedAt = realEstate.ModifiedAt;
+			vm.FileToApiViewModels.AddRange(images);
 
 			return View(vm);
 		}
