@@ -48,13 +48,15 @@ namespace TARge21Shop.ApplicationServices.Services
 				weatherInfo.DailyForecasts[0].Day.Icon = dto.DayIcon;
 				weatherInfo.DailyForecasts[0].Day.IconPhrase = dto.DayIconPhrase;
 				weatherInfo.DailyForecasts[0].Day.HasPrecipitation = dto.DayHasPrecipitation;
-				//precipitation type
-				//precipitation intensity
+				weatherInfo.DailyForecasts[0].Day.PrecipitationType = dto.DayPrecipitationType;
+				weatherInfo.DailyForecasts[0].Day.PrecipitationIntensity = dto.DayPrecipitationIntensity;
 
 
 				weatherInfo.DailyForecasts[0].Night.Icon = dto.NightIcon;
 				weatherInfo.DailyForecasts[0].Night.IconPhrase = dto.NightIconPhrase;
 				weatherInfo.DailyForecasts[0].Night.HasPrecipitation = dto.NightHasPrecipitation;
+				weatherInfo.DailyForecasts[0].Night.PrecipitationType = dto.NightPrecipitationType;
+				weatherInfo.DailyForecasts[0].Night.PrecipitationIntensity = dto.NightPrecipitationIntensity;
 			}
 
 			return dto;
