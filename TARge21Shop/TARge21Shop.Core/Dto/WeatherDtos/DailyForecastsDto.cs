@@ -2,71 +2,86 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TARge21Shop.Core.Dto.WeatherDtos
 {
     public class DailyForecastsDto
     {
-        public DateTime Date { get; set; }
-        public int EpochDate { get; set; }
-        public Temperature Temperature { get; set; }
-        public Day Day { get; set; }
-        public Night Night { get; set; }
-        public List<string> Sources { get; set; }
-        public string MobileLink { get; set; }
-        public string Link { get; set; }
-    }
+		//[JsonPropertyName("EffectiveDate")]
+		//public DateTime Date { get; set; }
+
+		//[JsonPropertyName("EffectiveEpochDate")]
+		//public int EpochDate { get; set; }
+
+		//[JsonPropertyName("Severity")]
+		//      public int Severity { get; set; }
+
+		//[JsonPropertyName("Text")]
+		//      public string Text { get; set; }
+
+		//[JsonPropertyName("Category")]
+		//      public string Category { get; set; }
+
+		public Temperature Temperature { get; set; }
+		public Day Day { get; set; }
+		public Night Night { get; set; }
+		public List<string> Sources { get; set; }
+
+		//[JsonPropertyName("MobileLink")]
+		//public string MobileLink { get; set; }
+
+		//[JsonPropertyName("Link")]
+		//public string Link { get; set; }
+	}
 
     public class Day
     {
-        public int Icon { get; set; }
-        public string IconPhrase { get; set; }
-        public bool HasPrecipitation { get; set; }
-        public string PrecipitationType { get; set; }
-        public string PrecipitationIntensity { get; set; }
-    }
-
-    public class Headline
-    {
-        public DateTime EffectiveDate { get; set; }
-        public int EffectiveEpochDate { get; set; }
-        public int Severity { get; set; }
-        public string Text { get; set; }
-        public string Category { get; set; }
-        public DateTime EndDate { get; set; }
-        public int EndEpochDate { get; set; }
-        public string MobileLink { get; set; }
-        public string Link { get; set; }
-    }
+		[JsonPropertyName("Icon")]
+		public int Icon { get; set; }
+		[JsonPropertyName("IconPhrase")]
+		public string IconPhrase { get; set; }
+		[JsonPropertyName("HasPrecipitation")]
+		public bool HasPrecipitation { get; set; }
+		[JsonPropertyName("PrecipitationType")]
+		public string PrecipitationType { get; set; }
+		[JsonPropertyName("PrecipitationIntensity")]
+		public string PrecipitationIntensity { get; set; }
+	}
 
     public class Maximum
     {
-        public double Value { get; set; }
-        public string Unit { get; set; }
-        public int UnitType { get; set; }
+		[JsonPropertyName("Value")]
+		public double Value { get; set; }
+		[JsonPropertyName("Unit")]
+		public string Unit { get; set; }
+		[JsonPropertyName("UnitType")]
+		public int UnitType { get; set; }
     }
 
     public class Minimum
     {
-        public double Value { get; set; }
-        public string Unit { get; set; }
-        public int UnitType { get; set; }
+		[JsonPropertyName("Value")]
+		public double Value { get; set; }
+		[JsonPropertyName("Unit")]
+		public string Unit { get; set; }
+		[JsonPropertyName("UnitType")]
+		public int UnitType { get; set; }
     }
 
     public class Night
     {
-        public int Icon { get; set; }
-        public string IconPhrase { get; set; }
-        public bool HasPrecipitation { get; set; }
-        public string PrecipitationType { get; set; }
-        public string PrecipitationIntensity { get; set; }
-    }
-
-    public class Root
-    {
-        public Headline Headline { get; set; }
-        public List<DailyForecastsDto> DailyForecasts { get; set; }
+		[JsonPropertyName("Icon")]
+		public int Icon { get; set; }
+		[JsonPropertyName("IconPhrase")]
+		public string IconPhrase { get; set; }
+		[JsonPropertyName("HasPrecipitation")]
+		public bool HasPrecipitation { get; set; }
+		[JsonPropertyName("PrecipitationType")]
+		public string PrecipitationType { get; set; }
+		[JsonPropertyName("PrecipitationIntensity")]
+		public string PrecipitationIntensity { get; set; }
     }
 
     public class Temperature
