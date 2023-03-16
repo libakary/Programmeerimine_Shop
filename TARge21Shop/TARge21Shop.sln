@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TARge21Shop.Data", "TARge21
 		{B640CB6A-AC49-4893-8B5D-F97DAC8E21C7} = {B640CB6A-AC49-4893-8B5D-F97DAC8E21C7}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TARge21Shop.SpaceshipTest", "TARge21Shop.SpaceshipTest\TARge21Shop.SpaceshipTest.csproj", "{1B8AAE89-9C3F-4620-BCF3-1707B8C4199A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{51D7E92F-34AB-4FCB-9D31-6BE0A26F6F88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51D7E92F-34AB-4FCB-9D31-6BE0A26F6F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51D7E92F-34AB-4FCB-9D31-6BE0A26F6F88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B8AAE89-9C3F-4620-BCF3-1707B8C4199A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B8AAE89-9C3F-4620-BCF3-1707B8C4199A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B8AAE89-9C3F-4620-BCF3-1707B8C4199A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B8AAE89-9C3F-4620-BCF3-1707B8C4199A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

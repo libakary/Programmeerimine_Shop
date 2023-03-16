@@ -36,8 +36,8 @@ namespace TARge21Shop.ApplicationServices.Services
 				dto.MobileLink = weatherInfo.Headline.MobileLink;
 				dto.Link = weatherInfo.Headline.Link;
 
-				dto.DailyForecastsDay = weatherInfo.DailyForecasts[0].EffectiveDate;
-				dto.DailyForecastsEpochDate = weatherInfo.DailyForecasts[0].EffectiveEpochDate;
+				//dto.DailyForecastsDay = weatherInfo.DailyForecasts[0].EffectiveDate;
+				//dto.DailyForecastsEpochDate = weatherInfo.DailyForecasts[0].EffectiveEpochDate;
 
 				dto.TempMinValue = weatherInfo.DailyForecasts[0].Temperature.Minimum.Value;
 				dto.TempMinUnit = weatherInfo.DailyForecasts[0].Temperature.Minimum.Unit;
@@ -52,7 +52,6 @@ namespace TARge21Shop.ApplicationServices.Services
 				dto.DayHasPrecipitation = weatherInfo.DailyForecasts[0].Day.HasPrecipitation;
 				dto.DayPrecipitationType = weatherInfo.DailyForecasts[0].Day.PrecipitationType;
 				dto.DayPrecipitationIntensity = weatherInfo.DailyForecasts[0].Day.PrecipitationIntensity;
-
 
 				dto.NightIcon = weatherInfo.DailyForecasts[0].Night.Icon;
 				dto.NightIconPhrase = weatherInfo.DailyForecasts[0].Night.IconPhrase;
