@@ -10,7 +10,5 @@ namespace TARge21Shop.Core.Dto.WeatherDtos
     {
         public HeadlineDto Headline { get; set; }
         public List<DailyForecastsDto> DailyForecasts { get; set; }
-  //      public List<DailyForecastsDto> DailyForecasts { get; set; }
-		//public DateTime EffectiveDate { get; set; }
 	}
 }
