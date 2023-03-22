@@ -30,7 +30,7 @@ namespace TARge21Shop.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				return RedirectToAction("city", "OpenWeatherForecasts");
+				return RedirectToAction("City", "OpenWeatherForecasts");
 			}
 			return View();
 		}
@@ -44,7 +44,7 @@ namespace TARge21Shop.Controllers
 
 			OpenWeatherViewModel vm = new OpenWeatherViewModel();
 
-			vm.city = dto.city;
+			//vm.city = dto.city;
 			vm.temp = dto.temp;
 			vm.feels_like = dto.feels_like;
 			vm.humidity = dto.humidity;

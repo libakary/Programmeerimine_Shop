@@ -9,8 +9,8 @@ namespace TARge21Shop.Core.Dto.OpenWeatherDtos
 {
 	public class OpenWeatherMainDto
 	{
-		[JsonPropertyName("City")]
-		public string city { get; set; }
+		//[JsonPropertyName("City")]
+		//public string city { get; set; }
 
 		[JsonPropertyName("Temperature")]
 		public double temp { get; set; }

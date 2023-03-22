@@ -8,7 +8,7 @@ namespace TARge21Shop.Core.Dto.OpenWeatherDtos
 {
 	public class OpenWeatherResultDto
 	{
-		public string city { get; set; }
+		//public string city { get; set; }
 		public double temp { get; set; }
 		public double feels_like { get; set; }
 		public int humidity { get; set; }
