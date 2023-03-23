@@ -10,7 +10,5 @@ namespace TARge21Shop.Core.Dto.OpenWeatherDtos
 	public class OpenWeatherRootDto
 	{
 		public OpenWeatherMainDto OpenWeatherMain { get; set; }
-		public HeadlineDto Headline { get; set; }
-		public List<DailyForecastsDto> DailyForecasts { get; set; }
 	}
 }
