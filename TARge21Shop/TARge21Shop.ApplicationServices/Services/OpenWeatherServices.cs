@@ -25,12 +25,12 @@ namespace TARge21Shop.ApplicationServices.Services
 				OpenWeatherRootDto weatherInfo = (new JavaScriptSerializer()).Deserialize<OpenWeatherRootDto>(json);
 
 				//dto.city = weatherInfo.OpenWeatherMain.city;
-				dto.temp = weatherInfo.OpenWeatherMain.temp;
-				dto.feels_like = weatherInfo.OpenWeatherMain.feels_like;
-				dto.humidity = weatherInfo.OpenWeatherMain.humidity;
-				dto.pressure = weatherInfo.OpenWeatherMain.pressure;
-				dto.wind_speed = weatherInfo.OpenWeatherMain.wind_speed;
-				dto.main = weatherInfo.OpenWeatherMain.main;
+				dto.temp = weatherInfo.temp;
+				dto.feels_like = weatherInfo.feels_like;
+				dto.humidity = weatherInfo.humidity;
+				dto.pressure = weatherInfo.pressure;
+				dto.wind_speed = weatherInfo.wind_speed;
+				dto.main = weatherInfo.main;
 
 			}
 
