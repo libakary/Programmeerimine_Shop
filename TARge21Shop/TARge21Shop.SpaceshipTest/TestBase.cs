@@ -38,15 +38,6 @@ namespace TARge21Shop.SpaceshipTest
 
 		public virtual void SetupServices(IServiceCollection services)
 		{
-			//var testHostingEnvironment = new MockHostingEnvironment();
-			//var builder = new WebHostBuilder()
-			//            .Configure(app => { })
-			//            .ConfigureServices(services =>
-			//            {
-			//                services.AddSingleton<IWebHostEnvironment>(testHostingEnvironment);
-			//            });
-			//var server = new TARge21ShopContext(builder);
-
 			services.AddScoped<ISpaceshipsServices, SpaceshipsServices>();
 			services.AddScoped<IFilesServices, FilesServices>();
 			services.AddScoped<IHostingEnvironment, MockIWebHostEnvironment>();

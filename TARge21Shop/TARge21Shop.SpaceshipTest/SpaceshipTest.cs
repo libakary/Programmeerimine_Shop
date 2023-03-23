@@ -9,6 +9,7 @@ using Xunit;
 using TARge21Shop.SpaceshipTest;
 using TARge21Shop.Core.Domain;
 using System.Xml.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace TARge21Shop.SpaceshipTest
 {
@@ -79,9 +80,8 @@ namespace TARge21Shop.SpaceshipTest
 		{
 			// arrange
 			SpaceshipDto spaceship = MockSpaceshipData();
-			var addSpaceship = await Svc<ISpaceshipsServices>().Create(spaceship);
 
-			//act
+			var addSpaceship = await Svc<ISpaceshipsServices>().Create(spaceship);
 			var result = await Svc<ISpaceshipsServices>().Delete((Guid)addSpaceship.Id);
 
 			//assert
@@ -89,7 +89,21 @@ namespace TARge21Shop.SpaceshipTest
 		}
 
 		[Fact]
-		private async Task Should_UpdateSpaceship_WhenUpdateData()
+		public async Task ShouldNot_DeleteByIdSpaceship_WhenDidNotDeleteSpaceship()
+		{
+			SpaceshipDto spaceship = MockSpaceshipData();
+			var addspaceship = await Svc<ISpaceshipsServices>().Create(spaceship);
+			var addspaceship2 = await Svc<ISpaceshipsServices>().Create(spaceship);
+
+			//var wrongGuid = Guid.NewGuid();
+
+			var result = await Svc<ISpaceshipsServices>().Delete((Guid)addspaceship2.Id);
+
+			Assert.NotEqual(result.Id, addspaceship.Id);
+		}
+
+		[Fact]
+		public async Task Should_UpdateSpaceship_WhenUpdateData()
 		{
 			var guid = new Guid("2d3d37d1-9ba4-4fd3-94d8-cb249420a069");
 
@@ -121,7 +135,7 @@ namespace TARge21Shop.SpaceshipTest
 		}
 
 		[Fact]
-		private async Task Should_UpdateSpaceship_WhenUpdateDataVersion2()
+		public async Task Should_UpdateSpaceship_WhenUpdateDataVersion2()
 		{
 			SpaceshipDto dto = MockSpaceshipData();
 			var createSpaceship = await Svc<ISpaceshipsServices>().Create(dto);
@@ -135,6 +149,21 @@ namespace TARge21Shop.SpaceshipTest
 			Assert.Equal(result.Crew, createSpaceship.Crew);
 			Assert.NotEqual(result.ModifiedAt, createSpaceship.ModifiedAt);
 		}
+
+		[Fact]
+		public async Task ShouldNot_UpdateSpaceship_WhenNotUpdateData()
+		{
+			SpaceshipDto dto = MockSpaceshipData();
+			var createSpaceship = await Svc<ISpaceshipsServices>().Create(dto);
+
+			SpaceshipDto nullUpdate = MockNullSpaceship();
+			var result = await Svc<ISpaceshipsServices>().Update(nullUpdate);
+
+			var nullId = nullUpdate.Id;
+
+			Assert.False(result.Id == nullId);
+		}
+		
 
 		private SpaceshipDto MockSpaceshipData()
 		{
@@ -179,6 +208,27 @@ namespace TARge21Shop.SpaceshipTest
 
 			return update;
 
+		}
+		private SpaceshipDto MockNullSpaceship()
+		{
+			SpaceshipDto nullDto = new()
+			{
+				Id = null,
+				Name = "name",
+				Type = "asd",
+				Crew = 123,
+				Passengers = 123,
+				CargoWeight = 123,
+				FullTripsCount = 123,
+				MaintenanceCount = 10,
+				LastMaintenance = DateTime.Now,
+				EnginePower = 110,
+				MaidenLaunch = DateTime.Now,
+				BuiltDate = DateTime.Now,
+				CreatedAt = DateTime.Now,
+				ModifiedAt = DateTime.Now,
+			};
+			return nullDto;
 		}
 	}
 }
