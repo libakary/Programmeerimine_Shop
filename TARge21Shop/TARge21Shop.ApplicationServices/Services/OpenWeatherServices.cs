@@ -24,6 +24,7 @@ namespace TARge21Shop.ApplicationServices.Services
 
 				OpenWeatherRootDto weatherInfo = (new JavaScriptSerializer()).Deserialize<OpenWeatherRootDto>(json);
 
+				
 				//dto.city = weatherInfo.OpenWeatherMain.city;
 				dto.temp = weatherInfo.temp;
 				dto.feels_like = weatherInfo.feels_like;
