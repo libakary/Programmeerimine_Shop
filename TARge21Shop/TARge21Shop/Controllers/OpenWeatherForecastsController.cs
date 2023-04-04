@@ -22,7 +22,7 @@ namespace TARge21Shop.Controllers
 		public IActionResult Index()
 		{
 			OpenWeatherViewModel vm = new OpenWeatherViewModel();
-			return View();
+			return View(vm);
 		}
 
 		[HttpPost]
