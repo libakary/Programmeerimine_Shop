@@ -9,7 +9,7 @@ namespace TARge21Shop.Core.ServiceInterface
 {
 	public interface IOpenWeatherServices
 	{
-		Task<OpenWeatherResultDto> OpenWeatherDetail(OpenWeatherResultDto dto);
+		Task<OpenWeatherResultDto> WeatherDetail(OpenWeatherResultDto dto);
 
 	}
 }
